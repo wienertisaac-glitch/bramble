@@ -6,7 +6,7 @@ const DEFAULTS = {
   browserName:    'Bramble',
   theme:          'dark',                      // 'dark' | 'light'
   homePage:       'newtab',                    // 'newtab' | a full https:// URL
-  serverUrl:      'http://localhost:8787',     // Bramble indexer (search) endpoint
+  serverUrl:      'https://babbling-tactile-sprinkler.ngrok-free.dev', // Bramble indexer (search) endpoint
   resultsPerPage: 30,
   adblock:        true,
   safeSearch:     true,
