@@ -24,7 +24,11 @@ function getJson(pathAndQuery, timeoutMs = 8000) {
       hostname: parsed.hostname,
       port: parsed.port || (parsed.protocol === 'https:' ? 443 : 80),
       path: parsed.pathname + parsed.search,
-      headers: { 'Accept': 'application/json' },
+      headers: {
+        'Accept': 'application/json',
+        // Bypass ngrok's free-tier browser interstitial so we get JSON, not HTML
+        'ngrok-skip-browser-warning': 'true',
+      },
       timeout: timeoutMs,
     }, (res) => {
       if (res.statusCode !== 200) { res.resume(); return resolve(null); }
