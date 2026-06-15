@@ -41,7 +41,10 @@
   }
   .btn:hover{transform:translateY(-2px);box-shadow:0 14px 38px rgba(167,139,250,.35)}
   .dl .meta{font-size:.82rem;color:var(--faint)}
-  .dl .other{font-size:.82rem;color:var(--faint)}
+  .alt-dls{font-size:.86rem;margin-top:4px}
+  .alt-dls a{color:var(--dim);text-decoration:none}
+  .alt-dls a:hover{color:var(--text);text-decoration:underline}
+  .alt-dls .sep{color:var(--faint);margin:0 6px}
 
   .features{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:18px;padding:30px 0 60px}
   .card{background:var(--bg2);border:1px solid var(--border);border-radius:16px;padding:22px}
@@ -73,10 +76,13 @@
     <p>A desktop browser with its own search engine — no tracking, no telemetry, no Big Tech in the middle. Just you and the web.</p>
 
     <div class="dl" id="download">
-      <!-- TODO: replace href with your GitHub Releases download URL once the installer is uploaded -->
-      <a class="btn" id="download-btn" href="#">&#11015; Download for Windows</a>
-      <span class="meta" id="dl-meta">Windows 10/11 &middot; ~180 MB</span>
-      <span class="other">macOS &amp; Linux coming soon</span>
+      <a class="btn" href="https://github.com/wienertisaac-glitch/bramble/releases/latest/download/Bramble-Setup-Windows.exe">&#11015; Download for Windows</a>
+      <span class="meta">Windows 10/11 &middot; free</span>
+      <div class="alt-dls">
+        <a href="https://github.com/wienertisaac-glitch/bramble/releases/latest/download/Bramble-macOS.dmg">macOS (.dmg)</a>
+        <span class="sep">&middot;</span>
+        <a href="https://github.com/wienertisaac-glitch/bramble/releases/latest/download/Bramble-Linux.AppImage">Linux (AppImage)</a>
+      </div>
     </div>
   </section>
 
@@ -104,8 +110,9 @@
   </section>
 
   <div class="note">
-    <b>First launch on Windows:</b> because Bramble is a new app, Windows may show
-    a &ldquo;Windows protected your PC&rdquo; screen. Click <b>More info &rarr; Run anyway</b> to continue.
+    <b>First launch:</b> because Bramble is a new, independent app it isn't yet code-signed.
+    On <b>Windows</b>, if you see &ldquo;Windows protected your PC,&rdquo; click <b>More info &rarr; Run anyway</b>.
+    On <b>macOS</b>, right-click the app &rarr; <b>Open</b> &rarr; <b>Open</b> to get past Gatekeeper.
   </div>
 
   <footer>

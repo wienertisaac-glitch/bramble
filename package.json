@@ -39,15 +39,18 @@
       "**/node_modules/sql.js/**"
     ],
     "win": {
-      "target": "nsis"
+      "target": "nsis",
+      "artifactName": "Bramble-Setup-Windows.${ext}"
     },
     "mac": {
       "target": "dmg",
-      "category": "public.app-category.productivity"
+      "category": "public.app-category.productivity",
+      "artifactName": "Bramble-macOS.${ext}"
     },
     "linux": {
       "target": "AppImage",
-      "category": "Network"
+      "category": "Network",
+      "artifactName": "Bramble-Linux.${ext}"
     }
   }
 }
