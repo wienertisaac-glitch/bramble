@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Bramble — Search smarter. Browse privately.</title>
+<meta name="description" content="Bramble is a privacy-focused desktop browser with its own search engine, ad-blocking, and an optional local AI. No tracking, no telemetry.">
+<style>
+  :root{
+    --bg:#0f0f17; --bg2:#181825; --bg3:#252535; --border:#313145;
+    --text:#cdd6f4; --dim:#a6adc8; --faint:#6c7086;
+    --a1:#a78bfa; --a2:#38bdf8; --a3:#34d399;
+  }
+  *{box-sizing:border-box;margin:0;padding:0}
+  html{scroll-behavior:smooth}
+  body{
+    font-family:-apple-system,'Segoe UI',system-ui,sans-serif;
+    background:var(--bg);color:var(--text);line-height:1.6;
+    background-image:radial-gradient(900px 500px at 50% -10%, rgba(167,139,250,.18), transparent 70%);
+    min-height:100vh;
+  }
+  .wrap{max-width:920px;margin:0 auto;padding:0 24px}
+  header{display:flex;align-items:center;justify-content:space-between;padding:22px 0}
+  .brand{font-size:1.25rem;font-weight:800;display:flex;align-items:center;gap:8px}
+  .brand .mark{background:linear-gradient(135deg,var(--a1),var(--a2),var(--a3));-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent}
+  nav a{color:var(--dim);text-decoration:none;font-size:.92rem;margin-left:20px}
+  nav a:hover{color:var(--text)}
+
+  .hero{text-align:center;padding:70px 0 50px}
+  .hero h1{font-size:3.1rem;line-height:1.1;letter-spacing:-.03em;font-weight:800;margin-bottom:18px}
+  .hero h1 .grad{background:linear-gradient(135deg,var(--a1),var(--a2),var(--a3));-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent}
+  .hero p{font-size:1.18rem;color:var(--dim);max-width:600px;margin:0 auto 34px}
+
+  .dl{display:inline-flex;flex-direction:column;align-items:center;gap:8px}
+  .btn{
+    display:inline-flex;align-items:center;gap:10px;
+    background:linear-gradient(135deg,var(--a1),var(--a2));
+    color:#0f0f17;font-weight:700;font-size:1.05rem;
+    padding:15px 30px;border-radius:14px;text-decoration:none;
+    box-shadow:0 10px 30px rgba(167,139,250,.25);transition:transform .12s,box-shadow .12s;
+  }
+  .btn:hover{transform:translateY(-2px);box-shadow:0 14px 38px rgba(167,139,250,.35)}
+  .dl .meta{font-size:.82rem;color:var(--faint)}
+  .dl .other{font-size:.82rem;color:var(--faint)}
+
+  .features{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:18px;padding:30px 0 60px}
+  .card{background:var(--bg2);border:1px solid var(--border);border-radius:16px;padding:22px}
+  .card .ic{font-size:1.6rem;margin-bottom:10px}
+  .card h3{font-size:1.05rem;margin-bottom:6px}
+  .card p{font-size:.93rem;color:var(--dim)}
+
+  .note{background:var(--bg2);border:1px solid var(--border);border-left:3px solid var(--a1);border-radius:12px;padding:16px 18px;font-size:.9rem;color:var(--dim);margin-bottom:60px}
+  .note b{color:var(--text)}
+
+  footer{border-top:1px solid var(--border);padding:26px 0 50px;color:var(--faint);font-size:.85rem;text-align:center}
+  footer a{color:var(--dim)}
+  @media(max-width:560px){.hero h1{font-size:2.3rem}}
+</style>
+</head>
+<body>
+<div class="wrap">
+
+  <header>
+    <div class="brand"><span class="mark">&#11041; Bramble</span></div>
+    <nav>
+      <a href="#features">Features</a>
+      <a href="#download">Download</a>
+    </nav>
+  </header>
+
+  <section class="hero">
+    <h1>Search smarter.<br><span class="grad">Browse privately.</span></h1>
+    <p>A desktop browser with its own search engine — no tracking, no telemetry, no Big Tech in the middle. Just you and the web.</p>
+
+    <div class="dl" id="download">
+      <!-- TODO: replace href with your GitHub Releases download URL once the installer is uploaded -->
+      <a class="btn" id="download-btn" href="#">&#11015; Download for Windows</a>
+      <span class="meta" id="dl-meta">Windows 10/11 &middot; ~180 MB</span>
+      <span class="other">macOS &amp; Linux coming soon</span>
+    </div>
+  </section>
+
+  <section class="features" id="features">
+    <div class="card">
+      <div class="ic">&#128269;</div>
+      <h3>Its own search engine</h3>
+      <p>Bramble runs on an independent web index — not Google, not Bing. Ranked results, image &amp; news search.</p>
+    </div>
+    <div class="card">
+      <div class="ic">&#128737;&#65039;</div>
+      <h3>Private by default</h3>
+      <p>No telemetry, no tracking. Your history and bookmarks stay on your machine. A real private mode when you want it.</p>
+    </div>
+    <div class="card">
+      <div class="ic">&#128683;</div>
+      <h3>Ads &amp; trackers blocked</h3>
+      <p>EasyList + EasyPrivacy built in, on by default. Faster pages, fewer creeps following you around.</p>
+    </div>
+    <div class="card">
+      <div class="ic">&#10024;</div>
+      <h3>Optional local AI</h3>
+      <p>Turn on AI overviews of your results. The model runs entirely on your machine — nothing is sent anywhere.</p>
+    </div>
+  </section>
+
+  <div class="note">
+    <b>First launch on Windows:</b> because Bramble is a new app, Windows may show
+    a &ldquo;Windows protected your PC&rdquo; screen. Click <b>More info &rarr; Run anyway</b> to continue.
+  </div>
+
+  <footer>
+    Bramble &mdash; built independently. Source-available for personal use.<br>
+    &copy; 2026 Isaac Wienert.
+  </footer>
+
+</div>
+</body>
+</html>

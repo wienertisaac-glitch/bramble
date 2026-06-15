@@ -1,0 +1,13 @@
+{
+  "name": "bramble-indexer",
+  "version": "1.0.0",
+  "description": "Bramble indexer — crawler, web index, and search API server.",
+  "license": "SEE LICENSE IN ../LICENSE",
+  "main": "index.js",
+  "scripts": {
+    "start": "node index.js"
+  },
+  "dependencies": {
+    "better-sqlite3": "^11.8.0"
+  }
+}

@@ -1,0 +1,53 @@
+{
+  "name": "bramble-browser",
+  "version": "1.0.0",
+  "description": "Bramble — a privacy-focused desktop browser client. Search is served by the Bramble indexer (see server/).",
+  "license": "SEE LICENSE IN LICENSE",
+  "author": "Isaac Wienert",
+  "main": "main.js",
+  "scripts": {
+    "start": "electron .",
+    "pack": "electron-builder --dir",
+    "dist": "electron-builder",
+    "dist:win": "electron-builder --win"
+  },
+  "dependencies": {
+    "@huggingface/transformers": "^4.2.0",
+    "sql.js": "^1.12.0"
+  },
+  "devDependencies": {
+    "electron": "^42.4.0",
+    "electron-builder": "^26.15.3"
+  },
+  "build": {
+    "appId": "app.bramblebrowser.desktop",
+    "productName": "Bramble",
+    "directories": {
+      "output": "dist"
+    },
+    "files": [
+      "**/*",
+      "!server/**",
+      "!deploy/**",
+      "!dist/**",
+      "!**/*.md",
+      "!render.yaml"
+    ],
+    "asarUnpack": [
+      "**/node_modules/onnxruntime-node/**",
+      "**/node_modules/@huggingface/**",
+      "**/node_modules/sql.js/**"
+    ],
+    "win": {
+      "target": "nsis"
+    },
+    "mac": {
+      "target": "dmg",
+      "category": "public.app-category.productivity"
+    },
+    "linux": {
+      "target": "AppImage",
+      "category": "Network"
+    }
+  }
+}

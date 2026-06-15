@@ -1,0 +1,30 @@
+# Render Blueprint for the Bramble indexer.
+# In Render: New + → Blueprint → connect this repo. It reads this file and
+# creates the service + persistent disk for you.
+#
+# NOTE: the "starter" plan (paid) is required — the free tier sleeps on idle,
+# which stops the crawler, and persistent disks aren't available on free.
+
+services:
+  - type: web
+    name: bramble-indexer
+    runtime: node
+    rootDir: server          # deploy only the server/, not the Electron client
+    plan: starter
+    buildCommand: npm install
+    startCommand: npm start
+    healthCheckPath: /api/health
+    autoDeploy: true
+    envVars:
+      - key: DATA_DIR        # write the index onto the mounted disk
+        value: /data
+      # Render injects PORT automatically; the server reads process.env.PORT.
+      # Optional crawler tuning (uncomment to override defaults):
+      # - key: CRAWL_BATCH_SIZE
+      #   value: "12"
+      # - key: CRAWL_DELAY
+      #   value: "150"
+    disk:
+      name: bramble-index
+      mountPath: /data
+      sizeGB: 5

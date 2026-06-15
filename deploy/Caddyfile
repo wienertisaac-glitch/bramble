@@ -1,0 +1,8 @@
+# Caddy gives you automatic HTTPS. Replace the domain with your own, point its
+# DNS A record at the server's IP, then: sudo systemctl reload caddy
+#
+# Caddy listens on 443/80 and forwards to the indexer running on localhost:8787.
+
+indexer.example.com {
+    reverse_proxy 127.0.0.1:8787
+}

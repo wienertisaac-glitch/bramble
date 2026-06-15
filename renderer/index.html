@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="Content-Security-Policy" content="default-src 'self' 'unsafe-inline' data:">
+  <title>Bramble</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<!-- ── Tab bar ── -->
+<div id="tab-bar">
+  <div id="tabs-scroll">
+    <div id="tabs-container"></div>
+  </div>
+  <button id="btn-new-tab" title="New Tab">+</button>
+</div>
+
+<!-- ── Toolbar ── -->
+<div id="toolbar">
+  <button id="btn-back"    class="nav-btn" title="Back">&#8592;</button>
+  <button id="btn-forward" class="nav-btn" title="Forward">&#8594;</button>
+  <button id="btn-reload"  class="nav-btn" title="Reload">&#8635;</button>
+
+  <div id="address-wrap">
+    <span id="lock-icon">&#128275;</span>
+    <input id="address-bar" type="text" spellcheck="false" placeholder="Search or enter address…">
+    <div id="suggestions"></div>
+  </div>
+
+  <button id="btn-bookmark" class="icon-btn" title="Bookmark">&#9733;</button>
+  <button id="btn-private"  class="icon-btn" title="Private Mode">&#128274;</button>
+  <button id="btn-adblock"  class="icon-btn active" title="Ad Blocker">&#128683;</button>
+  <button id="btn-menu"     class="icon-btn" title="Menu">&#8942;</button>
+</div>
+
+<!-- ── Panels (bookmarks / history / search) ── -->
+<div id="panel" class="hidden">
+  <div id="panel-header">
+    <span id="panel-title">Panel</span>
+    <button id="btn-panel-close">&#x2715;</button>
+  </div>
+  <div id="panel-content"></div>
+</div>
+
+<!-- ── Dropdown menu ── -->
+<div id="dropdown-menu" class="hidden">
+  <div class="menu-item" data-action="bookmarks">⭐ Bookmarks</div>
+  <div class="menu-item" data-action="history">🕐 History</div>
+  <div class="menu-item" data-action="search-panel">🔍 Search Index</div>
+  <div class="menu-sep"></div>
+  <div class="menu-item" data-action="settings">⚙️ Settings</div>
+  <div class="menu-sep"></div>
+  <div class="menu-item" data-action="clear-history">🗑️ Clear History</div>
+  <div class="menu-sep"></div>
+  <div class="menu-item" data-action="devtools">🛠️ Developer Tools</div>
+</div>
+
+<!-- ── Status bar ── -->
+<div id="status-bar">
+  <span id="status-text"></span>
+  <span id="adblock-count"></span>
+  <span id="index-stats"></span>
+</div>
+
+<script src="renderer.js"></script>
+</body>
+</html>
