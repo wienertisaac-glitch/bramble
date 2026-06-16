@@ -23,6 +23,8 @@ let crawlTimer = null;
 
 const SKIP_EXT  = /\.(css|js|json|xml|pdf|zip|tar|gz|mp3|mp4|avi|mov|wmv|flv|woff|woff2|ttf|eot|ico|svg|png|jpg|jpeg|gif|webp|bmp|tiff)(\?.*)?$/i;
 const SKIP_PATH = /\/(login|logout|signin|signup|register|cart|checkout|account|wp-admin|wp-login|feed|rss|atom)(\/|$|\?)/i;
+// Non-content views (edit/history/print/old revisions, tracking) -- same page, different URL
+const SKIP_QUERY = /[?&](action|oldid|diff|printable|redirect|veaction|mobileaction|curid)=/i;
 const SKIP_IMG_PATTERN = /\/(ads?|banner|tracking|pixel|beacon|spacer|blank|spinner|loading|icon|favicon|logo-\d)/i;
 
 // -- HTML parsers --------------------------------------------------------------
@@ -98,6 +100,7 @@ function extractLinks(html, baseUrl) {
       if (!abs.startsWith('http')) continue;
       if (SKIP_EXT.test(abs)) continue;
       if (SKIP_PATH.test(abs)) continue;
+      if (SKIP_QUERY.test(abs)) continue;
       links.push(abs);
     } catch { /* skip */ }
   }

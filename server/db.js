@@ -287,15 +287,35 @@ function searchPages(queryText, limit = 30) {
   }));
 }
 
+// Query params that don't change page identity (MediaWiki views, tracking, etc.)
+const NOISE_PARAMS = new Set([
+  'action','oldid','diff','printable','redirect','veaction','mobileaction','curid','stableid',
+  'utm_source','utm_medium','utm_campaign','utm_term','utm_content','fbclid','gclid','ref','source',
+]);
+
 // Normalize a URL so the same page under different variants maps to one key.
+// Strips trailing slashes, fragments, and noise query params, but keeps
+// meaningful ones (e.g. ?title=) so distinct pages stay distinct.
 function canonicalUrl(url) {
   try {
     const u = new URL(url);
     const host = u.hostname.replace(/^www\./, '');
+
+    // MediaWiki: /w/index.php?title=X is the same page as /wiki/X
+    if (u.pathname === '/w/index.php' && u.searchParams.get('title')) {
+      let t = u.searchParams.get('title');
+      try { t = decodeURIComponent(t); } catch {}
+      return host + '/wiki/' + t.replace(/\/+$/, '');
+    }
+
     let path = u.pathname;
     try { path = decodeURIComponent(path); } catch {}
-    path = path.replace(/\/+$/, '');   // drop trailing slash(es); ignore query + fragment
-    return host + path;
+    path = path.replace(/\/+$/, '');
+    const params = [...u.searchParams.entries()]
+      .filter(([k]) => !NOISE_PARAMS.has(k.toLowerCase()))
+      .sort((a, b) => a[0].localeCompare(b[0]));
+    const qs = params.length ? '?' + params.map(([k, v]) => `${k}=${v}`).join('&') : '';
+    return host + path + qs;
   } catch { return url; }
 }
 
