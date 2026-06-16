@@ -15,6 +15,7 @@ const CONFIG = {
   crawlDepth:        parseInt(process.env.CRAWL_DEPTH)          || 4,
   crawlLinksPerPage: parseInt(process.env.CRAWL_LINKS_PER_PAGE) || 60,
   crawlBatchSize:    parseInt(process.env.CRAWL_BATCH_SIZE)     || 12,
+  maxIndexed:        parseInt(process.env.MAX_INDEXED)          || 0, // 0 = no cap; stop crawling at this many pages
 };
 
 let crawling   = false;
@@ -251,6 +252,14 @@ function reseedFromIndex() {
 
 async function tick() {
   if (!crawling) return;
+
+  // Stop crawling once we hit the page cap (keep serving searches).
+  if (CONFIG.maxIndexed > 0 && db.getIndexStats().indexed >= CONFIG.maxIndexed) {
+    console.log(`[crawler] reached ${CONFIG.maxIndexed.toLocaleString()} indexed pages — crawling paused (search still works). Restart without MAX_INDEXED to resume.`);
+    stopCrawler();
+    return;
+  }
+
   const items = db.dequeue(CONFIG.crawlBatchSize);
   if (items.length) {
     await Promise.allSettled(
