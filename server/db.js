@@ -223,7 +223,7 @@ function searchPages(queryText, limit = 30) {
   const phrase   = queryText.toLowerCase().trim();
   const urlTerms = terms.slice(0, 5);
 
-  return [...scores.entries()]
+  const ranked = [...scores.entries()]
     .map(([id, bm25]) => {
       const m       = meta.get(id);
       const matched = termHits.get(id)?.size || 0;
@@ -265,14 +265,38 @@ function searchPages(queryText, limit = 30) {
       score *= domainAuthority(m.url);
       return { id, score, matched, m };
     })
-    .sort((a, b) => b.score - a.score)
-    .slice(0, limit)
-    .map(({ m, matched }) => ({
-      url: m.url, title: m.title, excerpt: buildExcerpt(m.body, terms),
-      body: m.body?.slice(0, 400),
-      termsMatched: matched, totalTerms: terms.length,
-      indexed_at: m.indexed_at,
-    }));
+    .sort((a, b) => b.score - a.score);
+
+  // Collapse duplicate pages indexed under different URL variants (trailing
+  // slash, query strings, percent-encoding) -- keep only the highest-scored copy.
+  const seen = new Set();
+  const out = [];
+  for (const r of ranked) {
+    const key = canonicalUrl(r.m.url);
+    if (seen.has(key)) continue;
+    seen.add(key);
+    out.push(r);
+    if (out.length >= limit) break;
+  }
+
+  return out.map(({ m, matched }) => ({
+    url: m.url, title: m.title, excerpt: buildExcerpt(m.body, terms),
+    body: m.body?.slice(0, 400),
+    termsMatched: matched, totalTerms: terms.length,
+    indexed_at: m.indexed_at,
+  }));
+}
+
+// Normalize a URL so the same page under different variants maps to one key.
+function canonicalUrl(url) {
+  try {
+    const u = new URL(url);
+    const host = u.hostname.replace(/^www\./, '');
+    let path = u.pathname;
+    try { path = decodeURIComponent(path); } catch {}
+    path = path.replace(/\/+$/, '');   // drop trailing slash(es); ignore query + fragment
+    return host + path;
+  } catch { return url; }
 }
 
 function escHtml(s) {
